@@ -56,10 +56,13 @@ public class QueueQs {
         q.add(9);
         q.add(10);
 
+        interLeave(q);
 
-
-
-
+        while (!q.isEmpty()) {
+            
+            System.out.println(q.peek());
+         q.remove();   
+        }
 
 
 
