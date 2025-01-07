@@ -150,21 +150,44 @@ public class QueueQs {
         }
         System.out.println();
     }
+    
+    //Practice Qs.4 --> Reverse the first k Element of the Queue
 
+    public static Queue<Integer> reverseFirstK(Queue<Integer> q, int k){
+        solve(q,k);
+
+        int size = q.size()- k;
+
+        while (size-- > 0) {
+            
+            int x = q.poll();
+            q.add(x);
+        }
+        return q;
+    }
+
+    public static void solve(Queue<Integer> q, int k){
+
+        if(k == 0) return;
+        int e = q.poll();
+        solve(q, k-1);
+        q.add(e);
+    }
     public static void main(String[] args) {
         Queue<Integer> q = new LinkedList<>();
-        int k = 7;
-        q.add(6);
-        q.add(8);
-        q.add(4);
-        q.add(7);
+        int k = 5;
         q.add(10);
-        q.add(5);
-        q.add(3);
-        q.add(9);
-        q.add(2);
-        q.add(1);
-
+        q.add(20);
+        q.add(30);
+        q.add(40);
+        q.add(50);
+        q.add(60);
+        q.add(70);
+        q.add(80);
+        q.add(90);
+        q.add(100);
+        reverseFirstK(q, k);
+        
         while (!q.isEmpty()) {
             System.out.println(q.remove());
         }
