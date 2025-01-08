@@ -173,8 +173,90 @@ public class QueueQs {
         solve(q, k-1);
         q.add(e);
     }
+
+     //Practice Qs.5 --> Maximum of all subarrays of size K
+     //Solution - 1
+     public static void MaxOfkSubarray(int arr[], int k){
+         int n = arr.length;
+        int sz = n-k+1;
+        int result[] = new int[sz];
+
+        int max;
+        for(int i=0; i<sz;i++){
+           max = 0;
+            for(int j=i; j<(i+k)-1; j++){
+
+                if (arr[j] > arr[j+1]) {
+                    
+                    max = Math.max(max, arr[j]);
+                }else{
+                    max = Math.max(max, arr[j+1]);
+
+                }
+            }
+            
+            result[i] = max;
+            
+            
+        }
+        
+        
+        for(int i =0; i<result.length; i++){
+            System.out.print(result[i]+" ");
+        }
+        System.out.println();
+    }
+    //Solution - 2
+    public static void printMax(int arr[], int k){
+
+        Deque<Integer> Qi = new LinkedList<Integer>();
+        int n = arr.length;
+        int i;
+        for(i=0; i<k; ++i){
+
+            while (!Qi.isEmpty() && arr[i] >= arr[Qi.peekLast()])
+                Qi.removeLast();
+            Qi.add(i);
+            
+        }
+
+        for(; i<n; ++i){
+
+            System.out.print(arr[Qi.peek()] + " ");
+
+            while ((!Qi.isEmpty()) && Qi.peek() <= i -k){
+                Qi.removeFirst();
+
+
+            }
+            while ((!Qi.isEmpty())
+                   && arr[i] >= arr[Qi.peekLast()])
+                Qi.removeLast();
+
+            // Add current element at the rear of Qi
+            Qi.addLast(i);
+        }
+
+        // Print the maximum element of last window
+        System.out.print(arr[Qi.peek()]);
+    
+        }
+
+
+    
+
     public static void main(String[] args) {
-        Queue<Integer> q = new LinkedList<>();
+      int arr[] = {1, 2 , 3, 1, 4, 5, 2, 3, 6};
+      int k = 3;
+printMax(arr, k);
+      
+      
+      
+      
+      
+      
+      
+        /*  Queue<Integer> q = new LinkedList<>();
         int k = 5;
         q.add(10);
         q.add(20);
@@ -190,7 +272,7 @@ public class QueueQs {
         
         while (!q.isEmpty()) {
             System.out.println(q.remove());
-        }
+        }*/
 
         /*
          * ArrayList<Job> arr = new ArrayList<Job>();
