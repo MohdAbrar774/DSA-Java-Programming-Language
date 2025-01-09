@@ -1,13 +1,13 @@
-public class QueueA {
+public class CircularQueueB {
     
     //Circular Queue Using Array 
-    static class Queue {
+    static class CircularQueue {
         static int arr[];
         static int size;
         static int rear;
         static int front;
 
-        Queue(int n) {
+        CircularQueue(int n) {
             arr = new int[n];
             size = n;
             rear = -1;
@@ -71,7 +71,7 @@ public class QueueA {
         
     }
     public static void main(String[] args) {
-        Queue q  = new Queue(3);
+        CircularQueue q  = new CircularQueue(3);
         q.add(1);
         q.add(2);
         q.add(3);
