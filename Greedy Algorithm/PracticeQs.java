@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class PracticeQs {
 
     public static int maxEqualPartition(String str) {// O(n)
@@ -58,14 +60,53 @@ public class PracticeQs {
         }
     }
 
+    public static char[] lexoStringLenNSumK(int n, int k){
+
+        char arr[] = new char[n];
+
+        Arrays.fill(arr, 'a');
+
+        for(int i=n-1; i>=0; i--){
+
+           k -= i;
+
+           if (k >= 0) {
+            
+            if (k >= 26) {
+                
+                arr[i] = 'z';
+                k -= 26;
+            }
+
+            else{
+                arr[i] = (char)(k + 97 - 1);
+                k -= arr[i] - 'a' + 1;
+            }
+           }else{
+
+            break;
+           }
+
+           k += i;
+        }
+
+        return arr;
+    }
     public static void main(String[] args) {
 
 
+        int n = 5, k = 72;
+        char arr[] = lexoStringLenNSumK(n, k);
+        System.out.println(new String(arr));
+ 
+       /*
+       int p[] = {-10, 10};
+       int k = 8;
+       //  System.out.println(nthOddNumInRange(p, k));
+       */
 
-        int p[] = {-10, 10};
-        int k = 8;
-        System.out.println(nthOddNumInRange(p, k));
-        // String str = "LRLLRRLRRL";
+       
+      // String str = "LRLLRRLRRL";
 
         // System.out.println(maxEqualPartition(str));
 
