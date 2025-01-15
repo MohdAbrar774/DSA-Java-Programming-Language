@@ -92,12 +92,30 @@ public class PracticeQs {
 
         return arr;
     }
+    public static int maxProfit(int price[], int n){
+        int minSofar = price[0];
+        int res = 0;
+
+        for(int i=1; i<n-1; i++){
+            minSofar = Math.min(minSofar, price[i]);
+
+            res = Math.max(res, price[i] - minSofar);
+        }
+
+        return res;
+    }
     public static void main(String[] args) {
 
+        int price[] = {7, 10, 1 , 3, 6, 9, 2};
+        
+        int n = price.length;
+        System.out.println(maxProfit(price, n));
 
+        /*
         int n = 5, k = 72;
         char arr[] = lexoStringLenNSumK(n, k);
         System.out.println(new String(arr));
+        */
  
        /*
        int p[] = {-10, 10};
