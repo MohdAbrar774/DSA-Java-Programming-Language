@@ -114,15 +114,45 @@ public class BinaryTreesB {
         return Math.max(lh, rh)+1;
     }
 
+    public static int count(Node root){
+        if (root == null) {
+            return 0;
+        }
+
+        int leftCount  = count(root.left);
+        int rightCount  = count(root.right);
+        return  leftCount + rightCount + 1;    
+    }
+
+    public static int Sum(Node root){
+        if (root == null) {
+            return 0;
+
+        }
+
+        int leftSum = Sum(root.left);
+        int rightSum = Sum(root.right);
+
+        return leftSum + rightSum + root.data;
+    }
+
     public static void main(String[] args) {
 
+        /*
+           1     --->  1
+          / \  
+         2   3   --->  5
+        / \ / \
+       4  5 6  7 --->  22 (sum=28) / 7(count)
+         
+         */
         Node root = new Node(1);
         root.left = new Node(2);
         root.right = new Node(3);
         root.left.left = new Node(4);
         root.left.right = new Node(5);
         root.right.right = new Node(6);
-        System.out.println(height(root));
+        System.out.println(Sum(root));
         
         // int nodes[] = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1 };
         // BinaryTrees trees = new BinaryTrees();
@@ -131,4 +161,4 @@ public class BinaryTreesB {
         // trees.levelOrder(root);
 
     }
-}
+}   
