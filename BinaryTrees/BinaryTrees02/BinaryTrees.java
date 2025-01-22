@@ -70,6 +70,37 @@ public class BinaryTrees {
    
    
     }
+    public static boolean isIdentical(Node node, Node Subroot){
+        if(node == null & Subroot == null ){
+            return true;
+
+        }else if (node == null || Subroot == null || node.data != Subroot.data) {
+            
+            return false;
+        }
+
+        if (!isIdentical(node.left, Subroot.left)) {
+            return false;
+        }
+        if (!isIdentical(node.right, Subroot.right)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public static boolean isSubtree(Node root, Node Subroot){
+        if (root == null) {
+            return false;
+        }
+        if (root.data == Subroot.data) {
+            if(isIdentical(root, Subroot)){
+                return true;
+            }
+        }
+
+        return isSubtree(root.left, Subroot) || isSubtree(root.right, Subroot);
+    }
 
     public static void main(String[] args) {
          /*
@@ -86,6 +117,16 @@ public class BinaryTrees {
         root.left.left = new Node(4);
         root.left.right = new Node(5);
         root.right.right = new Node(6);
-        System.out.println(diameter2(root).diam);
+       
+  /* 
+                2  
+               / \ 
+              4  5 
+*/
+        Node Subroot = new Node(2);
+        Subroot.left = new Node(4);
+        Subroot.right = new Node(5);
+
+        System.out.println(isSubtree(root, Subroot));
     }
 }
