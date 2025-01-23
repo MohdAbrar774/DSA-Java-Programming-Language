@@ -1,7 +1,7 @@
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class BinaryTreesB {
+public class BinaryTreesA {
 
     static class Node {
         int data;
