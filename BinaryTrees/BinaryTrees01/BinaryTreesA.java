@@ -34,34 +34,34 @@ public class BinaryTreesA {
             return newNode;
         }
 
-        public static void preOrder(Node root){
+        public static void preOrder(Node root) {
             if (root == null) {
-                System.out.print(-1+" ");
+                System.out.print(-1 + " ");
                 return;
             }
-            System.out.print(root.data+" ");
+            System.out.print(root.data + " ");
             preOrder(root.left);
             preOrder(root.right);
         }
 
-        public static void inOrder(Node root){
+        public static void inOrder(Node root) {
             if (root == null) {
-               // System.out.print(-1+" ");
+                // System.out.print(-1+" ");
                 return;
             }
             inOrder(root.left);
-            System.out.print(root.data+" ");
+            System.out.print(root.data + " ");
             inOrder(root.right);
         }
 
-        public static void postOrder(Node root){
+        public static void postOrder(Node root) {
             if (root == null) {
-               // System.out.print(-1+" ");
+                // System.out.print(-1+" ");
                 return;
             }
             postOrder(root.left);
             postOrder(root.right);
-            System.out.print(root.data+" ");
+            System.out.print(root.data + " ");
         }
 
         public static void levelOrder(Node root) {
@@ -88,12 +88,12 @@ public class BinaryTreesA {
                     }
                 } else {
 
-                    System.out.print(currNode.data+" ");
+                    System.out.print(currNode.data + " ");
                     if (currNode.left != null) {
 
                         q.add(currNode.left);
                     }
-                     if(currNode.right != null){
+                    if (currNode.right != null) {
 
                         q.add(currNode.right);
                     }
@@ -102,29 +102,30 @@ public class BinaryTreesA {
         }
 
     }
-    public static int height(Node root){
+
+    public static int height(Node root) {
         if (root == null) {
-            
+
             return 0;
         }
 
         int lh = height(root.left);
         int rh = height(root.right);
 
-        return Math.max(lh, rh)+1;
+        return Math.max(lh, rh) + 1;
     }
 
-    public static int count(Node root){
+    public static int count(Node root) {
         if (root == null) {
             return 0;
         }
 
-        int leftCount  = count(root.left);
-        int rightCount  = count(root.right);
-        return  leftCount + rightCount + 1;    
+        int leftCount = count(root.left);
+        int rightCount = count(root.right);
+        return leftCount + rightCount + 1;
     }
 
-    public static int Sum(Node root){
+    public static int Sum(Node root) {
         if (root == null) {
             return 0;
 
@@ -139,12 +140,12 @@ public class BinaryTreesA {
     public static void main(String[] args) {
 
         /*
-           1     --->  1
-          / \  
-         2   3   --->  5
-        / \ / \
-       4  5 6  7 --->  22 (sum=28) / 7(count)
-         
+         * 1 ---> 1
+         * / \
+         * 2 3 ---> 5
+         * / \ / \
+         * 4 5 6 7 ---> 22 (sum=28) / 7(count)
+         * 
          */
         Node root = new Node(1);
         root.left = new Node(2);
@@ -153,7 +154,7 @@ public class BinaryTreesA {
         root.left.right = new Node(5);
         root.right.right = new Node(6);
         System.out.println(Sum(root));
-        
+
         // int nodes[] = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1 };
         // BinaryTrees trees = new BinaryTrees();
         // Node root = trees.buildTree(nodes);
@@ -161,4 +162,4 @@ public class BinaryTreesA {
         // trees.levelOrder(root);
 
     }
-}   
+}
