@@ -155,6 +155,30 @@ public class BinaryTreeC {
 
         return dist1 + dist2;
     }
+
+    public static int KthAncestor(Node root, int n, int k ){
+
+        if (root  == null) {
+            return -1;
+        }
+        if (root.data == n) {
+            return 0;
+        }
+        int leftDist = KthAncestor(root.left, n, k);
+        int rightDist = KthAncestor(root.right, n, k);
+
+        if (leftDist == -1 && rightDist == -1) {
+            return -1;
+        }
+
+        int max = Math.max(leftDist, rightDist);
+        if (max+1 == k) {
+           System.out.println(root.data);
+        }
+
+        return max+1;
+
+    }
     public static void main(String[] args) {
         /*
          1
@@ -172,7 +196,7 @@ public class BinaryTreeC {
          root.right.left = new Node(6);
          root.right.right = new Node(7);
 
-         int n1 = 2, n2 =3 ;
-        System.out.println(minDist(root, n1, n2));
+         int n1 = 2, n2 =5, k = 2 ;
+       KthAncestor(root, n2, k);
     }
 }
