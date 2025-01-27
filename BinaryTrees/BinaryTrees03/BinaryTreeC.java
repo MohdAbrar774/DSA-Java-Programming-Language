@@ -179,6 +179,35 @@ public class BinaryTreeC {
         return max+1;
 
     }
+
+    public static int toSumTree(Node root) {
+        if (root == null) {
+            return 0;
+
+        }
+
+        int leftSum = toSumTree(root.left);
+        int rightSum = toSumTree(root.right);
+
+        int data = root.data;
+
+        int newLeft = root.left == null ? 0 : root.left.data;
+        int newRight= root.right == null ? 0 : root.right.data;
+
+        root.data = newLeft+ leftSum + newRight+ rightSum;
+
+        return data;
+    }   
+
+    public static void preOrder(Node root) {
+        if (root == null) {
+    
+            return;
+        }
+        System.out.print(root.data + " ");
+        preOrder(root.left);
+        preOrder(root.right);
+    }
     public static void main(String[] args) {
         /*
          1
@@ -197,6 +226,7 @@ public class BinaryTreeC {
          root.right.right = new Node(7);
 
          int n1 = 2, n2 =5, k = 2 ;
-       KthAncestor(root, n2, k);
+       toSumTree(root);
+       preOrder(root);
     }
 }

@@ -140,11 +140,11 @@ public class BinaryTreesA {
     public static void main(String[] args) {
 
         /*
-         * 1 ---> 1
-         * / \
-         * 2 3 ---> 5
-         * / \ / \
-         * 4 5 6 7 ---> 22 (sum=28) / 7(count)
+          1 ---> 1
+         / \
+        2   3 ---> 5
+       / \ / \
+      4  5 6  7 ---> 22 (sum=28) / 7(count)
          * 
          */
         Node root = new Node(1);
