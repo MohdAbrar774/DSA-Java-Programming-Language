@@ -111,18 +111,38 @@ public class PracticeQues {
         inOrder(root);
     }
 
-    
+    static int sum = 0;
+
+    public static int maxPathSumUtil(Node root, int res[]) {
+        if (root == null) {
+            return 0;
+
+        }
+
+        int leftSum = Math.max(0, maxPathSumUtil(root.left, res));
+        int rightSum = Math.max(0, maxPathSumUtil(root.right, res));
+
+        res[0] = Math.max(res[0], leftSum + rightSum + root.data);
+
+        return root.data + Math.max(leftSum, rightSum);
+    }
+
+    public static int maxPathSum(Node root) {
+        int res[] = { root.data };
+
+        maxPathSumUtil(root, res);
+
+        return res[0];
+    }
 
     public static void main(String[] args) {
 
-        Node root = new Node(1);
-        root.left = new Node(2);
-        root.right = new Node(3);
-        root.left.left = new Node(4);
-        root.right.left = new Node(2);
-        root.right.left.left = new Node(4);
-        root.right.right = new Node(4);
-       duplicateSubTree(root);
+        Node root = new Node(-10);
+        root.left = new Node(9);
+        root.right = new Node(20);
+        root.right.left = new Node(15);
+        root.right.right = new Node(7);
+        System.out.println(maxPathSum(root));
 
     }
 }
