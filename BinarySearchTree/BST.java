@@ -50,6 +50,44 @@ public class BST {
             return search(root.right, key);
         }
     }
+    public static Node delete(Node root , int val){
+
+        if (root.data < val) {
+            root.right = delete(root.right, val);
+        }
+        else if (root.data > val) {
+            
+            root.left = delete(root.left, val);
+        }else{//voila
+            //case -1 Leaf Node
+            if (root.left == null && root.right == null) {
+            return null;
+            }
+
+            //case 2 Single child Node
+            if (root.left == null) {
+                return root.right;
+            }
+            else if (root.right == null) {
+                return root.left;
+            }
+
+            //case 3 Both Children
+            Node IS = inOrderSuccessor(root.right);
+            root.data = IS.data;
+            root.right = delete(root.right, IS.data);
+        }
+
+        return root;
+    }
+  
+    public static Node inOrderSuccessor(Node root){
+        while (root.left != null) {
+            
+            root = root.left;
+        }
+        return root;
+    }
   
   
 
@@ -61,7 +99,12 @@ public class BST {
 
             root = insertNode(root, values[i]);
         }
-        System.out.println( search(root, 4));
+        inOrder(root);
+        System.out.println();
+        
+        delete(root, 5);
+        System.out.println();
+        inOrder(root);
        
     }
 }
