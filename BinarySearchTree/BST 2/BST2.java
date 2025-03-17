@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class BST2 {
 
     static class Node {
@@ -52,33 +54,61 @@ public class BST2 {
         return currroot;
     }
 
+    public static Node createBST2(ArrayList<Integer> inOrder, int st, int end) {
+        if (st > end) {
+            return null;
+        }
+
+        int mid = (st + end) / 2;
+
+        Node currroot = new Node(inOrder.get(mid));
+
+        currroot.left = createBST2(inOrder, st, mid - 1);
+        currroot.right = createBST2(inOrder, mid + 1, end);
+
+        return currroot;
+    }
+
+    public static void getInorder(Node root, ArrayList<Integer> inOrder) {
+        if (root == null) {
+            return;
+        }
+
+        getInorder(root.left, inOrder);
+        inOrder.add(root.data);
+        getInorder(root.right, inOrder);
+    }
+
+    public static Node balancedBST(Node root) {
+        ArrayList<Integer> inOrder = new ArrayList<>();
+        getInorder(root, inOrder);
+
+        root = createBST2(inOrder, 0, inOrder.size()-1);
+        return root;
+    }
+
     public static void main(String[] args) {
-        int arr[] = { 3, 5, 6, 8, 10, 11, 12 };
-
-        Node currroot = createBST(arr, 0, arr.length - 1);
-        preOrder(currroot);
-
-
-        
         Node root = new Node(8);
-        root.left = new Node(5);
+        root.left = new Node(6);
+        root.left.left = new Node(5);
+        root.left.left.left = new Node(3);
+
         root.right = new Node(10);
-        root.left.left = new Node(3);
-        root.left.right = new Node(6);
         root.right.right = new Node(11);
+        root.right.right.right = new Node(12);
         /*
-         * 8
-         * / \
-         * 5 10
-         * / \ \
-         * 3 6 11
+           8
+          / \
+         6  10
+        /     \
+       5      11
+      /        \
+     3         12
          */
 
-        preOrder(root);
-        System.out.println();
-        mirrorBst(root);
-        System.out.println();
-        preOrder(root);
+         root = balancedBST(root);
+         System.out.println();
+         preOrder(root);
 
     }
 }
