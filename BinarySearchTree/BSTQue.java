@@ -48,6 +48,31 @@ public class BSTQue {
         }
 
     }
+   public static int kthSmallestRecur(Node root, int[] cnt, int k) {
+        if (root == null) return -1;
+        
+      
+        int left = kthSmallestRecur(root.left, cnt, k);
+        
+      
+        if (left != -1) return left;
+        
+       
+        cnt[0]++;
+ 
+        if (cnt[0] == k) return root.data;
+        
+
+        int right = kthSmallestRecur(root.right, cnt, k);
+        return right;
+    }
+
+    // Function to find kth smallest value in BST.
+    static int kthSmallest(Node root, int k) {
+        int[] cnt = {0};
+        return kthSmallestRecur(root, cnt, k);
+    }
+
    
     public static void main(String[] args) {
         Node root = new Node(50);
@@ -69,7 +94,6 @@ public class BSTQue {
                    \
                     80
          */
-       closestElem(root, 56);
-       System.out.println(closest);
+    System.out.println(kthSmallest(root, 5));
     }
 }
