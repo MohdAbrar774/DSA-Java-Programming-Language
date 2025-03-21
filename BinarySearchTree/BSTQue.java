@@ -1,4 +1,4 @@
-
+import java.util.*;
 public class BSTQue {
     static class Node {
         int data;
@@ -73,27 +73,67 @@ public class BSTQue {
         return kthSmallestRecur(root, cnt, k);
     }
 
+    public static void getPreorder(Node root, ArrayList<Integer> inOrder) {
+        if (root == null) {
+            return;
+        }
+
+        inOrder.add(root.data);
+        getPreorder(root.left, inOrder);
+        getPreorder(root.right, inOrder);
+    }
+    public static int twoSumBST(Node root1, Node root2, int x){
+
+        ArrayList<Integer> arr1 = new ArrayList<>();
+        getPreorder(root1, arr1);
+    
+        return countSumpairs(root2, x, arr1);
+
+    }
+    public static int countSumpairs(Node root, int target, ArrayList<Integer> arr){
+
+        if(root == null ){
+            return 0;
+        }
+        int complement = target - root.data;
+        int count = arr.contains(complement) ? 1 : 0;
+        
+        count = count + countSumpairs(root.left, target, arr) + countSumpairs(root.right, target, arr);
+        return  count;
+    }
    
     public static void main(String[] args) {
-        Node root = new Node(50);
-        root.left = new Node(30);
-        root.left.left = new Node(5);
-        root.left.right = new Node(45);
+        Node root = new Node(5);
+        root.left = new Node(3);
+        root.left.left = new Node(2);
+        root.left.right = new Node(4);
 
-        root.right = new Node(60);
-        root.right.right = new Node(70);
-        root.right.left = new Node(55);
-        root.right.right.right = new Node(80);
+        root.right = new Node(7);
+        root.right.left = new Node(6);
+        root.right.right = new Node(8);
+          /*
+           5
+          / \
+         3   7
+        / \ / \
+       2  4 6  8
+         */
+        Node root1 = new Node(10);
+        root1.left = new Node(6);
+        root1.left.left = new Node(3);
+        root1.left.right = new Node(8);
+
+        root1.right = new Node(15);
+        root1.right.left = new Node(11);
+        root1.right.right = new Node(18);
 
           /*
-           50
+           10
           /  \
-         30   60
-        /  \ /  \
-       5  45 55  70
-                   \
-                    80
+         6   15
+        / \ /  \
+       3  8 11 18
          */
-    System.out.println(kthSmallest(root, 5));
+    System.out.println(twoSumBST(root, root1, 16));
     }
 }
