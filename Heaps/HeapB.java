@@ -139,21 +139,22 @@ public class HeapB {
     }
 
     public static void main(String[] args) {
-        int pts[][] = { { 3, 3 }, { 5, -1 }, { -2, 4 } };
-        int k = 2;
+       int  ropes[]  = {4, 3, 2, 6};
 
-        PriorityQueue<Point> pq = new PriorityQueue<>();
+       PriorityQueue<Integer> pq = new PriorityQueue<>();
+       for(int i=0; i<ropes.length; i++){
+        pq.add(ropes[i]);
+       }
 
-        for (int i = 0; i < pts.length; i++) {
-            int distSq = pts[i][0] * pts[i][0] + pts[i][1] * pts[i][1];
-            pq.add(new Point(pts[i][0], pts[i][1], distSq, i));
-        }
+       int res = 0;
+       while(pq.size() > 1){
+        int rop1 = pq.remove();
+        int rop2 = pq.remove();
 
+        res += rop1 + rop2;
+        pq.add(rop1 + rop2);
+       }
 
-        //Neareast K Cars
-        for(int i=0; i<k; i++){
-            System.out.println("C"+ pq.remove().idx);
-        }
-
+       System.out.println("The minimun cost for connecting the ropes "+res);
     }
 }
