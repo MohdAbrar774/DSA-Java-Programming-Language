@@ -92,26 +92,23 @@ public class BSTQue {
         return countSumpairs(root2, x, arr1);
 
     }
-
     public static int countSumpairs(Node root, int target, ArrayList<Integer> arr) {
-
         if (root == null) {
             return 0;
         }
         int complement = target - root.data;
         int count = arr.contains(complement) ? 1 : 0;
-
+        
         count = count + countSumpairs(root.left, target, arr) + countSumpairs(root.right, target, arr);
         return count;
     }
-    
+
     static class Info {
         int max;
         int min;
         boolean isBST;
         int sum;
         int currmax;
-        
 
         Info(int m, int mi, boolean is, int su, int cur) {
             max = m;
@@ -119,82 +116,76 @@ public class BSTQue {
             isBST = is;
             sum = su;
             currmax = cur;
-            
+
         }
 
         Info() {
         }
     }
 
-    static class INT
-    {
+    static class INT {
         int a;
     }
-     
+
     // Returns information about subtree such as
     // subtree with the maximum sum which is also a BST
-    static Info MaxSumBSTUtil( Node root, INT maxsum)
-    {
+    static Info MaxSumBSTUtil(Node root, INT maxsum) {
         // Base case
         if (root == null)
-            return new Info( Integer.MIN_VALUE, 
-                            Integer.MAX_VALUE, true, 0, 0 );
-     
+            return new Info(Integer.MIN_VALUE,
+                    Integer.MAX_VALUE, true, 0, 0);
+
         // If current node is a leaf node then
         // return from the function and store
         // information about the leaf node
-        if (root.left == null && root.right == null)
-        {
+        if (root.left == null && root.right == null) {
             maxsum.a = Math.max(maxsum.a, root.data);
-            return new Info( root.data, root.data, 
-                            true, root.data, maxsum.a );
+            return new Info(root.data, root.data,
+                    true, root.data, maxsum.a);
         }
-     
+
         // Store information about the left subtree
         Info L = MaxSumBSTUtil(root.left, maxsum);
-     
+
         // Store information about the right subtree
         Info R = MaxSumBSTUtil(root.right, maxsum);
-     
-        Info BST=new Info();
-     
+
+        Info BST = new Info();
+
         // If the subtree rooted under the current node
         // is a BST
-        if (L.isBST && R.isBST && L.max < root.data && 
-                                   R.min > root.data)
-        {
-     
+        if (L.isBST && R.isBST && L.max < root.data &&
+                R.min > root.data) {
+
             BST.max = Math.max(root.data, Math.max(L.max, R.max));
             BST.min = Math.min(root.data, Math.min(L.min, R.min));
-     
+
             maxsum.a = Math.max(maxsum.a, R.sum + root.data + L.sum);
             BST.sum = R.sum + root.data + L.sum;
-     
+
             // Update the current maximum sum
             BST.currmax = maxsum.a;
-     
+
             BST.isBST = true;
             return BST;
         }
-     
+
         // If the whole tree is not a BST then
         // update the current maximum sum
         BST.isBST = false;
         BST.currmax = maxsum.a;
         BST.sum = R.sum + root.data + L.sum;
-     
+
         return BST;
     }
-     
+
     // Function to return the maximum
     // sum subtree which is also a BST
-    static int MaxSumBST( Node root)
-    {
+    static int MaxSumBST(Node root) {
         INT maxsum = new INT();
         maxsum.a = Integer.MIN_VALUE;
         return MaxSumBSTUtil(root, maxsum).currmax;
     }
-     
 
     public static void main(String[] args) {
         Node root = new Node(5);
