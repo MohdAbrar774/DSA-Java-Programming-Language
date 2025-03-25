@@ -8,7 +8,7 @@ public class SelectAct{
         int end[]   = {6, 2, 4, 7, 9, 9};
 
 
-        //Sorting 
+        //Sorting  Based On End Time
         int activities[][] = new int[start.length][3];
         for(int i=0; i<start.length; i++){
             activities[i][0] = i;
@@ -22,29 +22,29 @@ public class SelectAct{
             System.out.println(activities[i][0]+" "+activities[i][1]+" "+activities[i][2]);
             
         }
-        // int maxAct = 0;
-        // ArrayList<Integer> ans = new ArrayList<>();
+        int maxAct = 0;
+        ArrayList<Integer> ans = new ArrayList<>();
 
-        // maxAct = 1;
-        // ans.add(activities[0][0]);
-        // int lastEnd = activities[0][2];
+        maxAct = 1;
+        ans.add(activities[0][0]);
+        int lastEnd = activities[0][2];
 
-        // for(int i=1; i<end.length; i++){
+        for(int i=1; i<end.length; i++){
 
-        //     if (activities[i][1] >= lastEnd) {
-        //          maxAct++;
-        //          ans.add(activities[i][0]);
-        //          lastEnd =activities[i][2] ;
+            if (activities[i][1] >= lastEnd) {
+                 maxAct++;
+                 ans.add(activities[i][0]);
+                 lastEnd =activities[i][2] ;
 
-        //     }
-        // }
+            }
+        }
 
-        // System.out.println("Max Activity: "+ maxAct);
+        System.out.println("Max Activity: "+ maxAct);
 
-        // for(int i=0; i<ans.size(); i++){
+        for(int i=0; i<ans.size(); i++){
 
-        //     System.out.print(" A"+ans.get(i));
-        // }
+            System.out.print(" A"+ans.get(i));
+        }
 
         
 
