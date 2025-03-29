@@ -30,16 +30,50 @@ public class HeapQue {
         return res;
     }
 
+    public static void minTimeToFillSlots(int arr[], int k, int n){
+         int time = 0; 
+         boolean visited[] = new boolean[n+1];
+
+
+         Queue<Integer> q = new LinkedList<>();
+
+
+         for(int i=0; i<k; i++){
+            q.add(arr[i]);
+
+          visited[arr[i]] = true;
+         }
+
+         while(q.size() > 0){
+
+            for(int i=0; i<q.size(); i++){
+            int val = q.remove();
+
+            if(val+1 <= n && !visited[val+1]){
+                
+                visited[val+1] = true;
+                    q.add(val+1);
+                }
+                if(val-1 >= 1 && !visited[val-1]){
+                    visited[val-1] = true;
+                    q.add(val-1);
+                }
+            }
+            time++;
+         }
+         System.out.println();
+
+         System.out.println(time-1);
+    }
+
     
     public static void main(String[] args) {
-        int arr[] = { 10, 20, 11, 70, 50, 40, 100, 5 };
+        int arr[] = {2, 6};
+        int  k = 2;
+        int n = 6;
 
+        minTimeToFillSlots(arr, k , n);
 
-        ArrayList<Integer>  res = kthLargest(arr);
-
-        for (int val : res) {
-            System.out.println(val+" ");
-        }
 
     }
 }
