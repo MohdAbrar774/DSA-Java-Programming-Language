@@ -129,14 +129,66 @@ public class HeapQue {
 
 
     }
-    public static void main(String[] args) {
-      int cells[][] = {
-        {1, 2, 2},
-        {3, 8, 2},
-        {5, 3, 5}
-      };
+    public static void heapify(int i, int arr[], int size) {
+        int left = 2 * i + 1;
+        int right = 2 * i + 2;
+        int maxIdx = i;
 
-      System.out.println(" "+minEffortPath(cells)+"  ");
+        if (left < size && arr[left] > arr[maxIdx]) {
+            maxIdx = left;
+        }
+
+        if (right < size && arr[right] > arr[maxIdx]) {
+            maxIdx = right;
+        }
+
+        if (maxIdx != i) {
+
+            // swap
+            int temp = arr[i];
+            arr[i] = arr[maxIdx];
+            arr[maxIdx] = temp;
+
+            heapify( maxIdx, arr, size);
+        }
+    }
+    public static int halveArray(int arr[]){
+        //step 1 - Create MaxHeap
+
+        int n = arr.length;
+        for(int i=n/2; i >= 0; i--){
+            heapify(i,arr,n);
+        }
+
+        //step 2 - calculate init sum, target sum & track operations, till curr>target
+
+        int currSum = 0;
+        for (int i : arr) {
+            currSum += i;
+        }
+
+        int targetSum = currSum/2;
+        int operations = 0;
+
+        while (currSum > targetSum) {
+            double curr = Math.floor(arr[0]/2);
+            arr[0] = (int)curr;
+            currSum = 0;
+            for (int i : arr) {
+                currSum += i;
+            }
+            operations++;
+
+            heapify(0,arr,n);
+
+        }
+        return operations;
+    }
+    public static void main(String[] args) {
+      int arr[] = {5, 19, 8, 1};
+
+      System.out.println("min Operations to halve array sum "+halveArray(arr));
+      System.out.println();
     
     }
 }
