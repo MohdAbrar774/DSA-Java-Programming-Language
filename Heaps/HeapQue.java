@@ -2,17 +2,15 @@ import java.util.*;
 
 public class HeapQue {
 
-   
-
     static PriorityQueue<Integer> pq = new PriorityQueue<>();
     static int k = 3;
 
     public static ArrayList<Integer> kthLargest(int arr[]) {
-        
-     ArrayList<Integer> res = new ArrayList<>(); 
-        
-        for (int  val : arr) {
-           
+
+        ArrayList<Integer> res = new ArrayList<>();
+
+        for (int val : arr) {
+
             if (pq.size() < k) {
                 pq.add(val);
             } else if (val > pq.peek()) {
@@ -21,8 +19,8 @@ public class HeapQue {
             }
 
             if (pq.size() >= k) {
-               res.add(pq.peek());
-            }else{
+                res.add(pq.peek());
+            } else {
                 pq.add(-1);
             }
         }
@@ -30,64 +28,62 @@ public class HeapQue {
         return res;
     }
 
-    public static void minTimeToFillSlots(int arr[], int k, int n){
-         int time = 0; 
-         boolean visited[] = new boolean[n+1];
+    public static void minTimeToFillSlots(int arr[], int k, int n) {
+        int time = 0;
+        boolean visited[] = new boolean[n + 1];
 
+        Queue<Integer> q = new LinkedList<>();
 
-         Queue<Integer> q = new LinkedList<>();
-
-
-         for(int i=0; i<k; i++){
+        for (int i = 0; i < k; i++) {
             q.add(arr[i]);
 
-          visited[arr[i]] = true;
-         }
+            visited[arr[i]] = true;
+        }
 
-         while(q.size() > 0){
+        while (q.size() > 0) {
 
-            for(int i=0; i<q.size(); i++){
-            int val = q.remove();
+            for (int i = 0; i < q.size(); i++) {
+                int val = q.remove();
 
-            if(val+1 <= n && !visited[val+1]){
-                
-                visited[val+1] = true;
-                    q.add(val+1);
+                if (val + 1 <= n && !visited[val + 1]) {
+
+                    visited[val + 1] = true;
+                    q.add(val + 1);
                 }
-                if(val-1 >= 1 && !visited[val-1]){
-                    visited[val-1] = true;
-                    q.add(val-1);
+                if (val - 1 >= 1 && !visited[val - 1]) {
+                    visited[val - 1] = true;
+                    q.add(val - 1);
                 }
             }
             time++;
-         }
-         System.out.println();
+        }
+        System.out.println();
 
-         System.out.println(time-1);
+        System.out.println(time - 1);
     }
 
-    static class Info implements Comparable<Info>{
-        
-        int diff;
-         int x;
-         int y;
+    static class Info implements Comparable<Info> {
 
-         public Info(int diff, int x, int y){
+        int diff;
+        int x;
+        int y;
+
+        public Info(int diff, int x, int y) {
             this.diff = diff;
             this.x = x;
             this.y = y;
 
-         }
+        }
 
-         @Override
-         public int compareTo(Info n2){
+        @Override
+        public int compareTo(Info n2) {
             return Integer.compare(this.diff, n2.diff);
-         }
+        }
     }
-    public static int[][] dirs = {{0,1}, {1, 0}, {-1, 0}, {0, -1}};
 
+    public static int[][] dirs = { { 0, 1 }, { 1, 0 }, { -1, 0 }, { 0, -1 } };
 
-    public static int minEffortPath(int[][] height){
+    public static int minEffortPath(int[][] height) {
         int m = height.length;
         int n = height[0].length;
 
@@ -126,9 +122,8 @@ public class HeapQue {
 
         return result[m - 1][n - 1];
 
-
-
     }
+
     public static void heapify(int i, int arr[], int size) {
         int left = 2 * i + 1;
         int right = 2 * i + 2;
@@ -149,46 +144,126 @@ public class HeapQue {
             arr[i] = arr[maxIdx];
             arr[maxIdx] = temp;
 
-            heapify( maxIdx, arr, size);
+            heapify(maxIdx, arr, size);
         }
     }
-    public static int halveArray(int arr[]){
-        //step 1 - Create MaxHeap
+
+    public static int halveArray(int arr[]) {
+        // step 1 - Create MaxHeap
 
         int n = arr.length;
-        for(int i=n/2; i >= 0; i--){
-            heapify(i,arr,n);
+        for (int i = n / 2; i >= 0; i--) {
+            heapify(i, arr, n);
         }
 
-        //step 2 - calculate init sum, target sum & track operations, till curr>target
+        // step 2 - calculate init sum, target sum & track operations, till curr>target
 
         int currSum = 0;
         for (int i : arr) {
             currSum += i;
         }
 
-        int targetSum = currSum/2;
+        int targetSum = currSum / 2;
         int operations = 0;
 
         while (currSum > targetSum) {
-            double curr = Math.floor(arr[0]/2);
-            arr[0] = (int)curr;
+            double curr = Math.floor(arr[0] / 2);
+            arr[0] = (int) curr;
             currSum = 0;
             for (int i : arr) {
                 currSum += i;
             }
             operations++;
 
-            heapify(0,arr,n);
+            heapify(0, arr, n);
 
         }
         return operations;
     }
-    public static void main(String[] args) {
-      int arr[] = {5, 19, 8, 1};
 
-      System.out.println("min Operations to halve array sum "+halveArray(arr));
-      System.out.println();
-    
+    static Node mergeKList(Node[] arr, int K) {
+        PriorityQueue<Node> pq = new PriorityQueue<>(new NodeComparator());
+
+        Node head = new Node(0);
+        Node last = head;
+
+        for (int i = 0; i < K; i++) {
+            if (arr[i] != null) {
+                pq.add(arr[i]);
+            }
+        }
+
+        if (pq.isEmpty()) {
+            return null;
+        }
+        while (!pq.isEmpty()) {
+
+            Node curr = pq.poll();
+            last.next = curr;
+            last = last.next;
+            if (curr.next != null) {
+                pq.add(curr.next);
+            }
+        }
+        return head.next;
+    }
+
+    public static void printList(Node node) {
+        while (node != null) {
+            System.out.print(node.data + "->");
+            node = node.next;
+        }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+
+        int k = 3, n = 3;
+        Node[] arr = new Node[k];
+
+        Node root1 = new Node(1);
+        arr[0] = root1;
+        root1.next = new Node(3);
+        root1.next.next = new Node(7);
+
+        Node root2 = new Node(2);
+        arr[1] = root2;
+        root2.next = new Node(4);
+        root2.next.next = new Node(8);
+
+        Node root3 = new Node(9);
+        arr[2] = root3;
+        root3.next = new Node(10);
+        root3.next.next = new Node(11);
+
+        Node res = mergeKList(arr, n);
+
+        if (res != null) {
+            printList(res);
+        }
+        System.out.println();
+    }
+}
+
+class Node {
+    int data;
+    Node next;
+
+    public Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+class NodeComparator implements Comparator<Node> {
+
+    public int compare(Node k1, Node k2) {
+        if (k1.data > k2.data) {
+            return 1;
+        } else if (k1.data < k2.data) {
+            return -1;
+        }
+
+        return 0;
     }
 }
