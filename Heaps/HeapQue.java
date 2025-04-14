@@ -124,61 +124,28 @@ public class HeapQue {
 
     }
 
-    public static void heapify(int i, int arr[], int size) {
-        int left = 2 * i + 1;
-        int right = 2 * i + 2;
-        int maxIdx = i;
+    public int halveArray(int[] nums) {
+        double sum = 0;
+        PriorityQueue<Double> pq = new PriorityQueue<>((a, b) -> Double.compare(b, a));
 
-        if (left < size && arr[left] > arr[maxIdx]) {
-            maxIdx = left;
+        for (int num : nums) {
+            sum += num;
+            pq.offer((double) num);
         }
 
-        if (right < size && arr[right] > arr[maxIdx]) {
-            maxIdx = right;
+        double halfSum = sum / 2;
+        double reducedSum = sum;
+        int steps = 0;
+
+        while (reducedSum > halfSum) {
+            double largest = pq.poll();
+            double halved = largest / 2;
+            reducedSum -= halved;
+            pq.offer(halved);
+            steps++;
         }
 
-        if (maxIdx != i) {
-
-            // swap
-            int temp = arr[i];
-            arr[i] = arr[maxIdx];
-            arr[maxIdx] = temp;
-
-            heapify(maxIdx, arr, size);
-        }
-    }
-
-    public static int halveArray(int arr[]) {
-        // step 1 - Create MaxHeap
-
-        int n = arr.length;
-        for (int i = n / 2; i >= 0; i--) {
-            heapify(i, arr, n);
-        }
-
-        // step 2 - calculate init sum, target sum & track operations, till curr>target
-
-        int currSum = 0;
-        for (int i : arr) {
-            currSum += i;
-        }
-
-        int targetSum = currSum / 2;
-        int operations = 0;
-
-        while (currSum > targetSum) {
-            double curr = Math.floor(arr[0] / 2);
-            arr[0] = (int) curr;
-            currSum = 0;
-            for (int i : arr) {
-                currSum += i;
-            }
-            operations++;
-
-            heapify(0, arr, n);
-
-        }
-        return operations;
+        return steps;
     }
 
     static Node mergeKList(Node[] arr, int K) {
