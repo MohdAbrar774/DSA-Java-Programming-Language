@@ -8,21 +8,18 @@ public class HashMapA {
         hm.put("India", 100);
         hm.put("China", 150);
         hm.put("US", 50);
+        hm.put("Indonesia", 6);
+        hm.put("Nepal", 5);
+
+        // Iterate
+        // System.out.println(hm.entrySet());
+        Set<String> keys = hm.keySet();
         System.out.println();
-        System.out.println(hm);
+        System.out.println(keys);
 
-        // Get - O(1)
-        int population = hm.get("India");
-        System.out.println(population);
+        for (String k : keys) {
+            System.out.println("key=" + k + ", Value=" + hm.get(k));
+        }
 
-        System.out.println(hm.get("Indonesia"));
-
-        // ContainsKey(key) - O(1)
-        System.out.println(hm.containsKey("India"));
-        System.out.println(hm.containsKey("Indonesia"));
-
-        // Remove - O(1)
-        System.out.println(hm.remove("China"));
-        System.out.println(hm);
     }
 }
