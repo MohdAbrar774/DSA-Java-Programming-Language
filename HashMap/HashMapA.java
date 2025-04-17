@@ -3,23 +3,26 @@ import java.util.*;
 public class HashMapA {
 
     public static void main(String[] args) {
-        HashMap<String, Integer> hm = new HashMap<>();
+        int arr[] = { 1, 3, 2, 5, 1, 3, 1, 5, 1 };
+        HashMap<Integer, Integer> map = new HashMap<>();
 
-        hm.put("India", 100);
-        hm.put("China", 150);
-        hm.put("US", 50);
-        hm.put("Indonesia", 6);
-        hm.put("Nepal", 5);
+        for (int i = 0; i < arr.length; i++) {
 
-        // Iterate
-        // System.out.println(hm.entrySet());
-        Set<String> keys = hm.keySet();
-        System.out.println();
-        System.out.println(keys);
+            if (map.containsKey(arr[i])) {
 
-        for (String k : keys) {
-            System.out.println("key=" + k + ", Value=" + hm.get(k));
+                map.put(arr[i], map.get(arr[i]) + 1);
+            } else {
+                map.put(arr[i], 1);
+            }
         }
 
+        // Set<Integer> keys = map.keySet();
+        for (Integer key : map.keySet()) {
+            if (map.get(key) > arr.length / 3) {
+                System.out.println();
+                System.out.println(key);
+                System.out.println();
+            }
+        }
     }
 }
