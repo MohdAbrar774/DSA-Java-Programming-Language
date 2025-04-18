@@ -2,27 +2,38 @@ import java.util.*;
 
 public class HashMapA {
 
-    public static void main(String[] args) {
-        int arr[] = { 1, 3, 2, 5, 1, 3, 1, 5, 1 };
-        HashMap<Integer, Integer> map = new HashMap<>();
+    public static boolean isAnagram(String s, String t) {
+        if (s.length() != t.length()) {
+            return false;
+        }
 
-        for (int i = 0; i < arr.length; i++) {
+        HashMap<Character, Integer> map = new HashMap<>();
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            map.put(ch, map.getOrDefault(ch, 0) + 1);
+        }
 
-            if (map.containsKey(arr[i])) {
-
-                map.put(arr[i], map.get(arr[i]) + 1);
+        for (int i = 0; i < t.length(); i++) {
+            char ch = t.charAt(i);
+            if (map.get(ch) != null) {
+                if (map.get(ch) == 1) {
+                    map.remove(ch);
+                } else {
+                    map.put(ch, map.get(ch) - 1);
+                }
             } else {
-                map.put(arr[i], 1);
+                return false;
             }
         }
 
-        // Set<Integer> keys = map.keySet();
-        for (Integer key : map.keySet()) {
-            if (map.get(key) > arr.length / 3) {
-                System.out.println();
-                System.out.println(key);
-                System.out.println();
-            }
-        }
+        return map.isEmpty();
+    }
+
+    public static void main(String[] args) {
+        String s = "care";
+        String t = "race";
+
+        System.out.println(isAnagram(s, t));
+
     }
 }
