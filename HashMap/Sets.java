@@ -6,6 +6,7 @@ public class Sets {
         int arr1[] = {7, 3, 9 };
         int arr2[] = {6, 3, 9, 2, 9, 4};
 
+        ArrayList<Integer> arr = new ArrayList<>();
         HashSet<Integer> set = new HashSet<>();
 
         for (int i = 0; i<arr1.length; i++) {
@@ -17,6 +18,10 @@ public class Sets {
 
         System.out.println("Union: " + set.size());
         System.out.println();
+        //Home-Work
+        for(Integer num : set){
+            System.out.println(num+" ");
+        }
 
         //intersection
 
@@ -31,11 +36,17 @@ public class Sets {
             if(set.contains(num)){
 
                 count++;
+                arr.add(num);
                 set.remove(num);
             }
         }
 
         System.out.println("Intersection: " + count);
+        //Home-Work
+        while(!arr.isEmpty()){
+            System.out.println(arr.remove(0));
+            
+        }
 
     }
 }
