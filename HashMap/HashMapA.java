@@ -47,22 +47,23 @@ public class HashMapA {
     }
 
     public static void main(String[] args) {
-        int arr[] = { 5, -2, 2, -8, 1, 7, 10, 23 };
+        int arr[] = { 10, -2, 2, -20, 10 };
+        int k = -10;
 
         HashMap<Integer, Integer> map = new HashMap<>();
+        map.put(0, 1);
 
         int sum = 0;
-        int len = 0;
+        int ans = 0;
 
-        for (int i = 0; i < arr.length; i++) {
-            sum += arr[i];
-            if (map.containsKey(sum)) {
-                len = Math.max(len, i - map.get(sum));
-            } else {
-                map.put(sum, i);
+        for (int j = 0; j < arr.length; j++) {
+            sum += arr[j];
+            if (map.containsKey(sum - k)) {
+                ans += map.get(sum - k);
             }
+            map.put(sum, map.getOrDefault(sum, 0) + 1);
 
         }
-        System.out.println("Largest subArray with sum as  0: " + len);
+        System.out.println(ans);
     }
 }
