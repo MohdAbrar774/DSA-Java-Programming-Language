@@ -16,6 +16,10 @@ This repository covers a wide range of DSA problems, including:
 * Linked Lists
 * Stacks
 * Queues
+* BinaryTree
+* BinarySearch Tree
+* Heap
+* HashMAp
 * Trees
 * Graphs
 
