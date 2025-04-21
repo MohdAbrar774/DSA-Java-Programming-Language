@@ -42,7 +42,8 @@ public class HashQue {
                 }
             } else {
 
-                // For Bottom view UpDATE the previous node for the key if exist or add key with its node
+                // For Bottom view UpDATE the previous node for the key if exist or add key with
+                // its node
                 // Same code except this line for the top view
                 map.put(curr.hd, curr.node);
 
@@ -64,25 +65,32 @@ public class HashQue {
         System.out.println();
     }
 
+    public static ArrayList<Integer> twoSum(int arr[], int target){
+        HashMap<Integer, Integer> map = new HashMap<>();
+        ArrayList<Integer> ans = new ArrayList<>();
+
+        for(int i=0; i<arr.length; i++){
+            
+            if(map.containsKey(target-arr[i])){
+                ans.add(map.get(target-arr[i]));
+                ans.add(i);
+            }else{
+                map.put(arr[i], i);
+                
+            }
+        }
+
+          return ans;
+    
+    
+    
+    }
+
     public static void main(String[] args) {
-        /*
-         * 1
-         * / \
-         * 2 3
-         * / \ / \
-         * 4 5 6 7
-         * 
-         */
-        Node root = new Node(20);
-        root.left = new Node(8);
-        root.right = new Node(22);
-        root.left.left = new Node(5);
-        root.left.right = new Node(3);
-        root.right.right = new Node(25);
-        root.left.right.left = new Node(10);
-        root.left.right.right = new Node(14);
-        System.out.println();
-        topView(root);
+        int arr[] = {2, 2};
+        int target = 4;
+
+        System.out.println(twoSum(arr, target));
     }
 
 }
