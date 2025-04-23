@@ -65,32 +65,55 @@ public class HashQue {
         System.out.println();
     }
 
-    public static ArrayList<Integer> twoSum(int arr[], int target){
+    public static ArrayList<Integer> twoSum(int arr[], int target) {
         HashMap<Integer, Integer> map = new HashMap<>();
         ArrayList<Integer> ans = new ArrayList<>();
 
-        for(int i=0; i<arr.length; i++){
-            
-            if(map.containsKey(target-arr[i])){
-                ans.add(map.get(target-arr[i]));
+        for (int i = 0; i < arr.length; i++) {
+
+            if (map.containsKey(target - arr[i])) {
+                ans.add(map.get(target - arr[i]));
                 ans.add(i);
-            }else{
+            } else {
                 map.put(arr[i], i);
-                
+
             }
         }
 
-          return ans;
-    
-    
-    
+        return ans;
+
+    }
+
+    public static String frequencySort(String s) {
+        HashMap<Character, Integer> map = new HashMap<>();
+        for (int i = 0; i < s.length(); ++i)
+            map.put(s.charAt(i), map.getOrDefault(s.charAt(i), 0) + 1);
+
+        PriorityQueue<Map.Entry<Character, Integer>> pq = new PriorityQueue<>(
+                (a, b) -> a.getValue() == b.getValue() ? a.getKey() - b.getKey()
+                        : b.getValue() - a.getValue());
+        for (Map.Entry<Character, Integer> e : map.entrySet())
+            pq.add(e);
+        StringBuilder res = new StringBuilder();
+        while (pq.size() != 0) {
+            char ch = pq.poll().getKey();
+            int val = map.get(ch);
+            while (val != 0) {
+                res.append(ch);
+                val--;
+            }
+        }
+        return res.toString();
     }
 
     public static void main(String[] args) {
-        int arr[] = {2, 2};
-        int target = 4;
+        String s = "tree";
+        char arr[] = new char[s.length()];
+        for (int i = 0; i < s.length(); i++) {
+            arr[i] = s.charAt(i);
+        }
 
-        System.out.println(twoSum(arr, target));
+        System.out.println(frequencySort(s));
     }
 
 }
