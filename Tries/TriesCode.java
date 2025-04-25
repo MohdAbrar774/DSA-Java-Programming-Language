@@ -41,15 +41,28 @@ public class TriesCode {
         return curr.eow == true;
     }
 
-    public static void main(String[] args) {
-
-        String[] s = { "the", "a", "there", "their", "any" };
-
-        for (String str : s) {
-            insert(str);
+    public static boolean wordBreak(String key) {
+        if (key.length() == 0) {
+            return true;
         }
 
-        System.out.println(search("any"));
-        System.out.println(search("an"));
+        for (int i = 0; i < key.length(); i++) {
+            if (search(key.substring(0, i)) && wordBreak(key.substring(i))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static void main(String[] args) {
+
+        String[] s = { "i", "like", "sam", "samsung", "mobile", "ice" };
+
+        for (int i = 0; i < s.length; i++) {
+            insert(s[i]);
+        }
+
+        String key = "ilikesamsumg";
+        System.out.println(wordBreak(key));
     }
 }
