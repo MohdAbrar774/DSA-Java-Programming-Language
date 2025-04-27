@@ -48,17 +48,33 @@ public class TriesProblems {
             }
         }
     }
+    public  static boolean startsWith(String prefix){
+        Node curr = root;
 
-    public static void main(String[] args) {
-        String arr[] = {"zebra", "cat", "camel", "cow","cake"};
+        for(int i=0; i<prefix.length(); i++){
+            int idx = prefix.charAt(i) - 'a';
 
-        for(int i=0; i<arr.length; i++){
-            insert(arr[i]);
+            if(curr.children[idx] == null){
+                return false;
+
+            }
+            curr = curr.children[idx];
         }
 
-        root.freq = -1;
+         return true;
+    }
 
-        findPrefix(root, "");
+    public static void main(String[] args) {
+        String words[] = {"apple", "app", "mango", "man", "woman"};
+        String prerfix1 = "app";
+        String prerfix2 = "ant";
+
+        for(int i=0; i<words.length; i++){
+            insert(words[i]);
+        }
+
+       System.out.println(startsWith(prerfix1));
+       System.out.println(startsWith(prerfix2));
     }
     
 }
