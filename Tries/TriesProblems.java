@@ -1,12 +1,12 @@
 public class TriesProblems {
 
-    static class Node{
+    static class Node {
         Node[] children = new Node[26];
         boolean eow = false;
         int freq;
 
-        public Node(){
-            for(int i=0; i<children.length; i++){
+        public Node() {
+            for (int i = 0; i < children.length; i++) {
                 children[i] = null;
             }
             freq = 1;
@@ -15,66 +15,79 @@ public class TriesProblems {
 
     public static Node root = new Node();
 
-    public static void insert(String word){
+    public static void insert(String word) {
         Node curr = root;
 
-        for(int i=0; i<word.length(); i++){
+        for (int i = 0; i < word.length(); i++) {
             int idx = word.charAt(i) - 'a';
 
-            if(curr.children[idx] == null){
+            if (curr.children[idx] == null) {
                 curr.children[idx] = new Node();
-            }else{
+            } else {
                 curr.children[idx].freq++;
             }
             curr = curr.children[idx];
         }
     }
 
-    public static void findPrefix(Node root, String ans){
-        if(root == null){
+    public static void findPrefix(Node root, String ans) {
+        if (root == null) {
             return;
         }
 
-        if(root.freq == 1){
-            System.out.print(ans+" ");
+        if (root.freq == 1) {
+            System.out.print(ans + " ");
             return;
         }
 
+        for (int i = 0; i < root.children.length; i++) {
 
-        for(int i=0; i<root.children.length; i++){
-
-            if(root.children[i] != null){
-                findPrefix(root.children[i], ans+(char)(i + 'a'));
+            if (root.children[i] != null) {
+                findPrefix(root.children[i], ans + (char) (i + 'a'));
             }
         }
     }
-    public  static boolean startsWith(String prefix){
+
+    public static boolean startsWith(String prefix) {
         Node curr = root;
 
-        for(int i=0; i<prefix.length(); i++){
+        for (int i = 0; i < prefix.length(); i++) {
             int idx = prefix.charAt(i) - 'a';
 
-            if(curr.children[idx] == null){
+            if (curr.children[idx] == null) {
                 return false;
 
             }
             curr = curr.children[idx];
         }
 
-         return true;
+        return true;
+    }
+
+    public static int countNodes(Node root) {
+        if (root == null) {
+            return 0;
+        }
+        int count = 0;
+
+        for (int i = 0; i < 26; i++) {
+            if (root.children[i] != null) {
+                count += countNodes(root.children[i]);
+            }
+        }
+
+        return count + 1;
     }
 
     public static void main(String[] args) {
-        String words[] = {"apple", "app", "mango", "man", "woman"};
-        String prerfix1 = "app";
-        String prerfix2 = "ant";
+        String str = "apple";
 
-        for(int i=0; i<words.length; i++){
-            insert(words[i]);
+        for (int i = 0; i < str.length(); i++) {
+            String suffix = str.substring(i);
+            insert(suffix);
+
         }
-
-       System.out.println(startsWith(prerfix1));
-       System.out.println(startsWith(prerfix2));
+        System.out.print(countNodes(root));
     }
-    
+
 }
