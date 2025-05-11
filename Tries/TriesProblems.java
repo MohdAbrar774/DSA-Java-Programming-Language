@@ -28,6 +28,7 @@ public class TriesProblems {
             }
             curr = curr.children[idx];
         }
+        curr.eow = true;
     }
 
     public static void findPrefix(Node root, String ans) {
@@ -79,15 +80,39 @@ public class TriesProblems {
         return count + 1;
     }
 
-    public static void main(String[] args) {
-        String str = "apple";
+    public static String ans = "";
 
-        for (int i = 0; i < str.length(); i++) {
-            String suffix = str.substring(i);
-            insert(suffix);
+    public static void longestWord(Node root, StringBuilder temp) {
+        if (root == null) {
+            return;
+        }
+
+        for (int i = 0; i < 26; i++) {
+
+            if (root.children[i] != null && root.children[i].eow == true) {
+                char ch = (char) (i + 'a');
+                temp.append(ch);
+
+                if (temp.length() > ans.length()) {
+                    ans = temp.toString();
+                }
+                longestWord(root.children[i], temp);
+
+                temp.deleteCharAt(temp.length() - 1);
+
+            }
 
         }
-        System.out.print(countNodes(root));
     }
 
+    public static void main(String[] args) {
+        String words[] = { "a", "banana", "app", "appl", "ap", "apply", "apple" };
+
+        for (int i = 0; i < words.length; i++) {
+            insert(words[i]);
+        }
+
+        longestWord(root, new StringBuilder(""));
+        System.out.println(ans);
+    }
 }
