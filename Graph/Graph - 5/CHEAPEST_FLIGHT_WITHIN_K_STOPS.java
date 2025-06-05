@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class CHEAPEST_FLIGHT_WITHIN_N_K {
+public class CHEAPEST_FLIGHT_WITHIN_K_STOPS{
     static class Edge {
         int src;
         int dest;
