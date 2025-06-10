@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Topological {
+public class Topological_Sort{
     static class Edge {
         int src;
         int dest;
