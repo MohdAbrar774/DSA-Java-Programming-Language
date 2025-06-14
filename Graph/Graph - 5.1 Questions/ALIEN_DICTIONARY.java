@@ -33,15 +33,13 @@ class ALIEN_DICTIONARY {
         return topSort;
     }
 
-    public static String findOrder(String[] words) {
+    public static String findOrder(String[] words, int k, int N) {
         Set<Character> charSet = new HashSet<>();
         for (String word : words) {
             for (char ch : word.toCharArray()) {
                 charSet.add(ch);
             }
         }
-
-        int k = charSet.size();
 
         // Map characters to index
         Map<Character, Integer> charToIndex = new HashMap<>();
@@ -58,7 +56,7 @@ class ALIEN_DICTIONARY {
             graph[i] = new ArrayList<>();
         int[] indeg = new int[k];
 
-        for (int i = 0; i < words.length - 1; i++) {
+        for (int i = 0; i < N - 1; i++) {
             String w1 = words[i], w2 = words[i + 1];
             int len = Math.min(w1.length(), w2.length());
 
@@ -91,10 +89,47 @@ class ALIEN_DICTIONARY {
         return ans.toString();
     }
 
+    public static boolean isAlienSorted(String[] dict, String order) {
+        Map<Character, Integer> rank = new HashMap<>();
+        for (int i = 0; i < order.length(); i++) {
+            rank.put(order.charAt(i), i);
+        }
+
+        for (int i = 0; i < dict.length - 1; i++) {
+            String word1 = dict[i];
+            String word2 = dict[i + 1];
+
+            boolean found = false;
+            int len = Math.min(word1.length(), word2.length());
+            for (int j = 0; j < len; j++) {
+                char c1 = word1.charAt(j);
+                char c2 = word2.charAt(j);
+
+                if (c1 != c2) {
+                    if (rank.get(c1) > rank.get(c2))
+                        return false;
+                    found = true;
+                    break;
+                }
+            }
+
+            // Prefix issue: longer word comes before its prefix
+            if (!found && word1.length() > word2.length())
+                return false;
+        }
+
+        return true;
+    }
 
     public static void main(String[] args) {
-        String[] alienDict = {"addbb", "dadcc", "cabb", "ba", "a", "a"};
+        String[] alienDict = { "addbb", "dadcc", "cabb", "ba", "a", "a" };
+        int N = 6, K = 4;
 
-        System.out.println(findOrder(alienDict));
+        String order = findOrder(alienDict, K, N);
+
+        boolean isValid = isAlienSorted(alienDict, order);
+
+        System.out.println(isValid ? 1 : 0);
+
     }
 }
