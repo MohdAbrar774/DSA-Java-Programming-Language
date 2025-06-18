@@ -41,6 +41,7 @@ public class UPDATE_ST {
         System.out.println(getSumUtil(0,0, n-1, qi, qj));
         
     }
+    //O(logn)
     public static void updateUtil(int i, int si, int sj, int idx, int diff){
         if(idx > sj || idx < si){
             return;

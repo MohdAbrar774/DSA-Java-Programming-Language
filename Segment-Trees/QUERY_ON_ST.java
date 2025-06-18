@@ -20,6 +20,7 @@ public class QUERY_ON_ST {
 
     }
 
+    //O(logn)
     public static int getSumUtil(int i, int si, int sj ,int qi, int qj){
         if(qj <= si || qi >= sj){
             return 0;
