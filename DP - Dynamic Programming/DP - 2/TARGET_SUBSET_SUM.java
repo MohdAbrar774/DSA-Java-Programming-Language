@@ -1,6 +1,7 @@
 public class TARGET_SUBSET_SUM {
 
-    public static boolean targetSum(int[] val, int sum) {
+    //O(n*sum)
+    public static boolean targetSumTab(int[] val, int sum) {
         int n = val.length;
         boolean[][] dp = new boolean[n + 1][sum + 1];
 
@@ -40,7 +41,7 @@ public class TARGET_SUBSET_SUM {
 
         int arr[] = { 4, 2, 7, 1, 3 };
         int sum = 10;
-        System.out.println(targetSum(arr, sum));
+        System.out.println(targetSumTab(arr, sum));
 
     }
 }
